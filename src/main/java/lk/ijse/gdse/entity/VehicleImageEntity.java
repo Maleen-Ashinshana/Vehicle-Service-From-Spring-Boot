@@ -12,18 +12,18 @@ import lombok.NoArgsConstructor;
 @Table(name = "vehicleImage")
 public class VehicleImageEntity implements SuperEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int vehicle_image_id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String image_id;
     @Column(nullable = false,columnDefinition = "LongText")
     @Lob
-    private String vehicle_image_name;
+    private String vehicle_image;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id",referencedColumnName = "vehicle_id")
     private VehicleEntity vehicle;
 
-    public VehicleImageEntity(int vehicle_image_id, String vehicle_image_name) {
-        this.vehicle_image_id = vehicle_image_id;
-        this.vehicle_image_name = vehicle_image_name;
+    public VehicleImageEntity(String image_id, String vehicle_image_name) {
+        this.image_id = image_id;
+        this.vehicle_image = vehicle_image_name;
     }
 }

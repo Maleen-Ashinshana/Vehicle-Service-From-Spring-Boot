@@ -13,14 +13,14 @@ import lombok.ToString;
 @ToString
 public class VehicleImageDTO {
 
-    private String vehicle_image_id;
+    private String image_id;
 
     private String vehicle_image;
 
     private String vehicle_id;
 
-    public VehicleImageDTO(String vehicle_image_id, String vehicle_image) {
-        this.vehicle_image_id = vehicle_image_id;
+    public VehicleImageDTO(String image_id, String vehicle_image) {
+        this.image_id = image_id;
         this.vehicle_image = vehicle_image;
     }
 }
