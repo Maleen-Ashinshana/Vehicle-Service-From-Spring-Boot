@@ -15,12 +15,12 @@ public class VehicleImageDTO {
 
     private String vehicle_image_id;
 
-    private String vehicle_image_name;
+    private String vehicle_image;
 
-    private VehicleEntity vehicleEntity;
+    private String vehicle_id;
 
-    public VehicleImageDTO(String vehicle_image_id, String vehicle_image_name) {
+    public VehicleImageDTO(String vehicle_image_id, String vehicle_image) {
         this.vehicle_image_id = vehicle_image_id;
-        this.vehicle_image_name = vehicle_image_name;
+        this.vehicle_image = vehicle_image;
     }
 }

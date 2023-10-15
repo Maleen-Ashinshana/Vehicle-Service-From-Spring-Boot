@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 public class VehicleDTO {
     private String vehicle_id;
+    private String driver_name;
     private String vehicle_brand;
     private String vehicle_category;
     private String vehicle_image;
@@ -21,16 +22,4 @@ public class VehicleDTO {
     private int seat_capacity;
     private String transmission;
 
-    private List<VehicleImageEntity> vehicle_image_id;
-
-    public VehicleDTO(String vehicle_id, String vehicle_brand, String vehicle_category, String vehicle_image, String fuel_type, String fuel_usage, int seat_capacity, String transmission) {
-        this.vehicle_id = vehicle_id;
-        this.vehicle_brand = vehicle_brand;
-        this.vehicle_category = vehicle_category;
-        this.vehicle_image = vehicle_image;
-        this.fuel_type = fuel_type;
-        this.fuel_usage = fuel_usage;
-        this.seat_capacity = seat_capacity;
-        this.transmission = transmission;
-    }
 }
