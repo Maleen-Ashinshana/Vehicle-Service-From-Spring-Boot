@@ -43,16 +43,24 @@ public class VehicleImageController {
 
         return new ResponseEntity<>(selectedVehicleImage,HttpStatus.OK);
     }
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+
     @DeleteMapping("/{image_id}")
     void deleteVehicleImage( @PathVariable String image_id){
      vehicleImageService.deleteVehicleImage(image_id);
     }
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+
     @PatchMapping("/{image_id}")
-    void updateVehicleImage(@Valid @PathVariable String image_id,@RequestBody VehicleImageDTO imageDTO,Errors errors){
-        imageDTO.setImage_id(image_id);
-        vehicleImageService.updateVehicleImage(imageDTO);
+    public String updateVehicleImage(
+            @RequestPart byte[] vehicle_image,
+            @PathVariable String image_id
+    ){
+        String VImag= Base64.getEncoder().encodeToString(vehicle_image);
+
+        VehicleImageDTO vehicleImageDTO=new VehicleImageDTO();
+        vehicleImageDTO.setVehicle_image(VImag);
+
+        vehicleImageService.updateVehicleImage(image_id,vehicleImageDTO);
+        return String.valueOf(new ResponseEntity<>(HttpStatus.OK));
 
     }
 }

@@ -4,6 +4,7 @@ package lk.ijse.gdse.service.util;
 import lk.ijse.gdse.dto.VehicleImageDTO;
 import lk.ijse.gdse.entity.VehicleEntity;
 import lk.ijse.gdse.entity.VehicleImageEntity;
+import lk.ijse.gdse.exception.NotFoundException;
 import lk.ijse.gdse.repo.VehicleImageRepo;
 import lk.ijse.gdse.repo.VehicleRepo;
 import lk.ijse.gdse.service.VehicleImageService;
@@ -38,23 +39,30 @@ public class VehicleImageServiceIMPL implements VehicleImageService {
 
     @Override
     public VehicleImageDTO getSelectedVehicleImage(String image_id) {
-        VehicleImageEntity vehicleImageEntity = vehicleImageRepo.findById(image_id).orElseThrow();
+        VehicleImageEntity vehicleImageEntity = vehicleImageRepo.findById(image_id).orElseThrow(()->new NotFoundException("The vehicle id cannot be found :"+image_id));
         VehicleImageDTO vehicleImageDTO = converter.toVehicleImageDTO(vehicleImageEntity);
         vehicleImageDTO.setVehicle_id(vehicleImageEntity.getVehicle().getVehicle_id());
         return vehicleImageDTO;
     }
 
     @Override
-    public void updateVehicleImage(VehicleImageDTO imageDTO) {
-        Optional<VehicleImageEntity> imageEntity=vehicleImageRepo.findById(imageDTO.getImage_id());
+    public void updateVehicleImage(String image_id,VehicleImageDTO imageDTO) {
+        Optional<VehicleImageEntity> imageEntity=vehicleImageRepo.findById(image_id);
         if (!imageEntity.isPresent()){
-            imageEntity.get().setVehicle_image(imageDTO.getVehicle_image());
+            throw new NotFoundException("The vehicle id cannot be found :"+image_id);
+
         }
+        VehicleImageEntity vehicleImage=imageEntity.get();
+        vehicleImage.setVehicle_image(imageDTO.getVehicle_image());
 
     }
 
     @Override
     public void deleteVehicleImage(String image_id) {
+        Optional<VehicleImageEntity> byId = vehicleImageRepo.findById(image_id);
+        if (!byId.isPresent()){
+            throw new NotFoundException("The vehicle id cannot be found :"+image_id);
+        }
         vehicleImageRepo.deleteById(image_id);
 
     }

@@ -18,31 +18,25 @@ public class VehicleController {
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
+
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
-    VehicleDTO saveVehicle(
-            @RequestPart String driver_name,
-            @RequestPart String vehicle_brand,
-            @RequestPart String vehicle_category,
-            @RequestPart String fuel_type,
-            @RequestPart String fuel_usage,
-            @RequestPart int seat_capacity,
-            @RequestPart String transmission
-    ){
-        VehicleDTO vehicleDTO=new VehicleDTO();
-        vehicleDTO.setDriver_name(driver_name);
-        vehicleDTO.setVehicle_brand(vehicle_brand);
-        vehicleDTO.setVehicle_category(vehicle_category);
-        vehicleDTO.setFuel_type(fuel_type);
-        vehicleDTO.setFuel_usage(fuel_usage);
-        vehicleDTO.setSeat_capacity(seat_capacity);
-        vehicleDTO.setTransmission(transmission);
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    VehicleDTO saveVehicle(@Valid @RequestBody VehicleDTO vehicleDTO) {
+//        VehicleDTO vehicleDTO=new VehicleDTO();
+//        vehicleDTO.setDriver_name(driver_name);
+//        vehicleDTO.setVehicle_brand(vehicle_brand);
+//        vehicleDTO.setVehicle_category(vehicle_category);
+//        vehicleDTO.setFuel_type(fuel_type);
+//        vehicleDTO.setFuel_usage(fuel_usage);
+//        vehicleDTO.setSeat_capacity(seat_capacity);
+//        vehicleDTO.setTransmission(transmission);
 
 
-        System.out.println(vehicleDTO.getVehicle_id()+"***");
+        System.out.println(vehicleDTO.getVehicle_id() + "***");
         return vehicleService.saveVehicle(vehicleDTO);
     }
-//    @ResponseStatus(HttpStatus.CREATED)
+
+    //    @ResponseStatus(HttpStatus.CREATED)
 //    @PostMapping(consumes = "application/json",produces = "application/json")
 //    VehicleDTO saveVehicle(@Valid @RequestBody VehicleDTO vehicleDTO){
 //        System.out.println(vehicleDTO.getVehicle_id());
@@ -55,22 +49,21 @@ public class VehicleController {
 //        return vehicleService.saveVehicle(vehicleDTO);
 //    }
     @GetMapping("/{vehicle_id}")
-    ResponseEntity<VehicleDTO> getVehicle(@Valid @PathVariable String vehicle_id){
-        VehicleDTO vehicleDTO=vehicleService.getSelectedVehicle(vehicle_id);
-
-        return new ResponseEntity<>(vehicleDTO,HttpStatus.OK);
+    ResponseEntity<VehicleDTO> getVehicle(@Valid @PathVariable String vehicle_id) {
+        VehicleDTO vehicleDTO = vehicleService.getSelectedVehicle(vehicle_id);
+        return new ResponseEntity<>(vehicleDTO, HttpStatus.OK);
     }
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+
+
     @DeleteMapping("/{vehicle_id}")
-    void deleteVehicle(@Valid @PathVariable String vehicle_id){
+    void deleteVehicle(@Valid @PathVariable String vehicle_id) {
         vehicleService.deleteVehicle(vehicle_id);
 
     }
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+
     @PatchMapping("/{vehicle_id}")
-    void updateVehicle(@Valid @PathVariable String vehicle_id,@RequestBody VehicleDTO vehicleDTO){
-        vehicleDTO.setVehicle_id(vehicle_id);
-        vehicleService.updateVehicle(vehicleDTO);
+    void updateVehicle(@Valid @PathVariable String vehicle_id, @RequestBody VehicleDTO vehicleDTO) {
+        vehicleService.updateVehicle(vehicle_id, vehicleDTO);
 
     }
 }
