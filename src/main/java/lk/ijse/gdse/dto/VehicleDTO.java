@@ -29,7 +29,7 @@ public class VehicleDTO {
      @NotNull(message = "Fuel Usage cannot be empty")
     private String fuel_usage;
      @NotNull(message = "Seat Capacity cannot be empty")
-    private int seat_capacity;
+    private String seat_capacity;
      @NotNull(message = "Transmission cannot be empty")
     private String transmission;
 

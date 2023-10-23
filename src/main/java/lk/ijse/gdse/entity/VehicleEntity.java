@@ -27,7 +27,7 @@ public class VehicleEntity implements SuperEntity{
     @Column(nullable = false)
     private String fuel_usage;
     @Column(nullable = false)
-    private int seat_capacity;
+    private String seat_capacity;
     @Column(nullable = false)
     private String transmission;
 
@@ -37,7 +37,7 @@ public class VehicleEntity implements SuperEntity{
     /*@OneToMany(mappedBy = "vehicle")
     private List<MainTravelServiceEntity> mainTravelServiceEntities;*/
 
-    public VehicleEntity(String vehicle_id, String diver_name, String vehicle_brand, String vehicle_category, String fuel_type, String fuel_usage, int seat_capacity, String transmission) {
+    public VehicleEntity(String vehicle_id, String diver_name, String vehicle_brand, String vehicle_category, String fuel_type, String fuel_usage, String seat_capacity, String transmission) {
         this.vehicle_id = vehicle_id;
         this.driver_name = diver_name;
         this.vehicle_brand = vehicle_brand;
