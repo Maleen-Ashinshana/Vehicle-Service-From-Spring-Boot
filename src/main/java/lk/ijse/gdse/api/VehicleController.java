@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/vehicle")
 @CrossOrigin("*")
@@ -65,5 +67,10 @@ public class VehicleController {
     void updateVehicle(@Valid @PathVariable String vehicle_id, @RequestBody VehicleDTO vehicleDTO) {
         vehicleService.updateVehicle(vehicle_id, vehicleDTO);
 
+    }
+    @GetMapping
+    public ResponseEntity<List<VehicleDTO>> getAllGuide() {
+        List<VehicleDTO> dto = vehicleService.getAllVehicle();
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }

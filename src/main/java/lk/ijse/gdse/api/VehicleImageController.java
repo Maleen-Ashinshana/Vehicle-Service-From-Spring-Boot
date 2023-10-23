@@ -11,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/vehicleImage")
@@ -62,5 +63,10 @@ public class VehicleImageController {
         vehicleImageService.updateVehicleImage(image_id,vehicleImageDTO);
         return String.valueOf(new ResponseEntity<>(HttpStatus.OK));
 
+    }
+    @GetMapping
+    public ResponseEntity<List<VehicleImageDTO>> getAllGuide() {
+        List<VehicleImageDTO> dto = vehicleImageService.getAllVehicleImages();
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }

@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -64,5 +66,15 @@ public class VehicleServiceIMPL implements VehicleService {
             throw new NotFoundException("The vehicle id cannot be found  :" + vehicle_id);
         }
         vehicleRepo.deleteById(vehicle_id);
+    }
+
+    @Override
+    public List<VehicleDTO> getAllVehicle() {
+        return vehicleRepo.findAll().stream().map(vehicle->convert.toVehicleDTO(vehicle)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<VehicleDTO> getByName(String name) {
+        return null;
     }
 }
