@@ -38,6 +38,14 @@ public class VehicleImageController {
         System.out.println(vehicle_id+"vehicleId");
         return vehicleImageService.saveVehicleImage(vehicle_id,vehicleImageDTO).getVehicle_id();
     }
+    @RequestMapping("/test")
+    @PostMapping()
+
+    public String testSave(){
+        /*System.out.println("");*/
+        String test="Test";
+        return test;
+    }
     @GetMapping(value = "/{image_id}",produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<VehicleImageDTO> getVehicle(@Valid @PathVariable String image_id){
         VehicleImageDTO selectedVehicleImage = vehicleImageService.getSelectedVehicleImage(image_id);
