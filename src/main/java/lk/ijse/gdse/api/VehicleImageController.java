@@ -9,7 +9,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -27,24 +30,35 @@ public class VehicleImageController {
     @PostMapping(value = "/{vehicle_id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public String saveVehicleImage(
 
-            @RequestPart byte[] vehicle_image,
+            @RequestPart List<MultipartFile> vehicle_image,
             @PathVariable String vehicle_id){
 
-        String VImag= Base64.getEncoder().encodeToString(vehicle_image);
+        List<byte[]> vehicleImagesData = new ArrayList<>();
 
-        VehicleImageDTO vehicleImageDTO=new VehicleImageDTO();
-        vehicleImageDTO.setVehicle_image(VImag);
+        /*String VImag= Base64.getEncoder().encodeToString(vehicle_image);*/
+        for (MultipartFile image : vehicle_image) {
+            try {
+                byte[] imageData = image.getBytes();
+                vehicleImagesData.add(imageData);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-        System.out.println(vehicle_id+"vehicleId");
-        return vehicleImageService.saveVehicleImage(vehicle_id,vehicleImageDTO).getVehicle_id();
+        VehicleImageDTO vehicleImageDTO = new VehicleImageDTO();
+
+        vehicleImageDTO.setVehicle_image(vehicleImagesData.toString());
+
+        System.out.println(vehicle_id + "vehicleId");
+        return vehicleImageService.saveVehicleImage(vehicle_id, vehicleImageDTO).getVehicle_id();
     }
     @RequestMapping("/test")
     @PostMapping()
-
-    public String testSave(){
+    public String testSave(@RequestPart List<MultipartFile>images ){
         /*System.out.println("");*/
-        String test="Test";
-        return test;
+
+        return images.size()+"";
+
     }
     @GetMapping(value = "/{image_id}",produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<VehicleImageDTO> getVehicle(@Valid @PathVariable String image_id){
