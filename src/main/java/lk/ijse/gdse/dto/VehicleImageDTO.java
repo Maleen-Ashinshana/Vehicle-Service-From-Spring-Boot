@@ -15,11 +15,12 @@ public class VehicleImageDTO {
 
     private String image_id;
 
-    private String vehicle_image;
+    private byte[] vehicle_image;
+
 
     private String vehicle_id;
 
-    public VehicleImageDTO(String image_id, String vehicle_image) {
+    public VehicleImageDTO(String image_id, byte[] vehicle_image) {
         this.image_id = image_id;
         this.vehicle_image = vehicle_image;
     }

@@ -22,8 +22,8 @@ public class VehicleImageEntity implements SuperEntity{
     @JoinColumn(name = "vehicle_id",referencedColumnName = "vehicle_id")
     private VehicleEntity vehicle;
 
-    public VehicleImageEntity(String image_id, String vehicle_image_name) {
+    public VehicleImageEntity(String image_id, String vehicle_image) {
         this.image_id = image_id;
-        this.vehicle_image = vehicle_image_name;
+        this.vehicle_image = vehicle_image;
     }
 }

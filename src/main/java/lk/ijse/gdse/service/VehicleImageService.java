@@ -11,4 +11,6 @@ public interface VehicleImageService {
     void updateVehicleImage(String image_id,VehicleImageDTO imageDTO);
     void deleteVehicleImage(String image_id);
     List<VehicleImageDTO> getAllVehicleImages();
+
+
 }

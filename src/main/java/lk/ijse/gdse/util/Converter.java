@@ -8,6 +8,8 @@ import lk.ijse.gdse.entity.VehicleImageEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.Base64;
+
 @Component
 public class Converter {
     private final ModelMapper modelMapper;
@@ -23,9 +25,15 @@ public class Converter {
         return modelMapper.map(vehicleEntity, VehicleDTO.class);
     }
     public VehicleImageEntity toVehicleImageEntity(VehicleImageDTO vehicleImageDTO){
-        return modelMapper.map(vehicleImageDTO, VehicleImageEntity.class);
+
+
+        VehicleImageEntity map = modelMapper.map(vehicleImageDTO, VehicleImageEntity.class);
+    map.setVehicle_image(Base64.getEncoder().encodeToString(vehicleImageDTO.getVehicle_image()));
+    return map;
+
     }
     public  VehicleImageDTO toVehicleImageDTO(VehicleImageEntity  vehicleImageEntity){
+
         return modelMapper.map(vehicleImageEntity, VehicleImageDTO.class);
     }
 }
