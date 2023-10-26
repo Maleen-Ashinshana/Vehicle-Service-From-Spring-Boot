@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,7 +47,13 @@ public class VehicleImageServiceIMPL implements VehicleImageService {
         System.out.println(imageEntity.getVehicle_image() +"Vehicle Entity Image");
         imageEntity.setVehicle(vehicleEntity);
 
+        System.out.println(imageDTO.getVehicle_image()+"Vehicle Image Dto");
+        String image= Base64.getEncoder().encodeToString(imageDTO.getVehicle_image());
+        System.out.println(image + " NEW");
+
+
         VehicleImageDTO vehicleImageDTO = converter.toVehicleImageDTO(vehicleImageRepo.save(imageEntity));
+        vehicleImageDTO.setVehicle_image(image.getBytes());
         System.out.println(vehicleImageDTO+"******");
         return vehicleImageDTO;
     }
@@ -56,6 +63,12 @@ public class VehicleImageServiceIMPL implements VehicleImageService {
         VehicleImageEntity vehicleImageEntity = vehicleImageRepo.findById(image_id).orElseThrow(()->new NotFoundException("The vehicle id cannot be found :"+image_id));
         VehicleImageDTO vehicleImageDTO = converter.toVehicleImageDTO(vehicleImageEntity);
         vehicleImageDTO.setVehicle_id(vehicleImageEntity.getVehicle().getVehicle_id());
+        vehicleImageDTO.setVehicle_image(vehicleImageEntity.getVehicle_image().getBytes());
+        /*vehicleImageEntity.setVehicle_image(vehicleImageEntity.getVehicle_image());*/
+        System.out.println(vehicleImageDTO.getVehicle_image() + "Vehicle Imagessssss");
+        /*System.out.println(vehicleImageEntity.getVehicle_image() + " Vehicle Image Entity");*/
+        /*String vImages= Arrays.toString(vehicleImageDTO.getVehicle_image());*/
+        /*System.out.println(vImages + "Vehicle Service");*/
         return vehicleImageDTO;
     }
 
