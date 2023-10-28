@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.Base64;
+import java.util.List;
 
 @Component
 public class Converter {
@@ -19,10 +20,23 @@ public class Converter {
     }
 
     public VehicleEntity toVehicleEntity(VehicleDTO vehicleDTO){
+
         return modelMapper.map(vehicleDTO, VehicleEntity.class);
     }
     public  VehicleDTO toVehicleDTO(VehicleEntity  vehicleEntity){
-        return modelMapper.map(vehicleEntity, VehicleDTO.class);
+        List<VehicleImageEntity> images = vehicleEntity.getImages();
+        /*vehicleEntity.setImages(null);*/
+        VehicleDTO map = modelMapper.map(vehicleEntity, VehicleDTO.class);
+        if (images!=null){
+            map.setImageDTOS(
+
+                    images.stream().map(i->new VehicleImageDTO(i.getImage_id(),
+                            Base64.getDecoder().decode(i.getVehicle_image()),
+                            vehicleEntity.getVehicle_id())).toList());
+        }
+
+
+        return map;
     }
     public VehicleImageEntity toVehicleImageEntity(VehicleImageDTO vehicleImageDTO){
 

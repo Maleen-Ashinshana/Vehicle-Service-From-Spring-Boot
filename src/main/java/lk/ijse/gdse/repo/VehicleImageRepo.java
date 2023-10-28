@@ -1,5 +1,6 @@
 package lk.ijse.gdse.repo;
 
+import lk.ijse.gdse.entity.VehicleEntity;
 import lk.ijse.gdse.entity.VehicleImageEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,5 +14,5 @@ public interface VehicleImageRepo extends JpaRepository<VehicleImageEntity,Strin
     void deleteByVehicle_image_id(String image_id);*/
     List<VehicleImageEntity> findAll();
 
-
+    List<VehicleImageEntity> findAllByVehicle(VehicleEntity entity);
 }

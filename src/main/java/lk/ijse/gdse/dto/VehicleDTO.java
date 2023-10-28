@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,4 +44,5 @@ public class VehicleDTO {
 
     private String remark;
 
+    private List<VehicleImageDTO>imageDTOS=new ArrayList<>();
 }

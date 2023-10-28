@@ -1,6 +1,7 @@
 package lk.ijse.gdse.api;
 
 import jakarta.validation.Valid;
+import lk.ijse.gdse.dto.VehicleDTO;
 import lk.ijse.gdse.dto.VehicleImageDTO;
 import lk.ijse.gdse.repo.VehicleImageRepo;
 import lk.ijse.gdse.service.VehicleImageService;
@@ -28,7 +29,7 @@ public class VehicleImageController {
     }
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/{vehicle_id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public String saveVehicleImage(@RequestPart List<MultipartFile> vehicle_image
+    public VehicleImageDTO saveVehicleImage(@Valid @RequestPart List<MultipartFile> vehicle_image
             , @PathVariable String vehicle_id){
 
         List<byte[]> vehicleImagesData = new ArrayList<>();
@@ -41,13 +42,14 @@ public class VehicleImageController {
                 imageDTO.setVehicle_image(image.getBytes());
                /* byte[] imageData = image.getBytes();
                 vehicleImagesData.add(imageData);*/
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            String vehicleId = vehicleImageService.saveVehicleImage(vehicle_id, imageDTO).getVehicle_id();
+            return vehicleImageService.saveVehicleImage(vehicle_id, imageDTO);
 
         }
-        return "Saved";
+        return null;
 
     }
     @RequestMapping("/test")
