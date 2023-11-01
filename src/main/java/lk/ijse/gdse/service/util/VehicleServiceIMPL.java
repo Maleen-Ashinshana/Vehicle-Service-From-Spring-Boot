@@ -33,7 +33,7 @@ public class VehicleServiceIMPL implements VehicleService {
     @Override
     public VehicleDTO getSelectedVehicle(String vehicle_id) {
         Optional<VehicleEntity> byId = vehicleRepo.findById(vehicle_id);
-        if (byId.isPresent()) {
+        if (byId.isEmpty()) {
             throw new NotFoundException("The vehicle id cannot be found  :" + vehicle_id);
         }
         return convert.toVehicleDTO(byId.get());
@@ -44,7 +44,7 @@ public class VehicleServiceIMPL implements VehicleService {
     @Override
     public void updateVehicle(String vehicle_id, VehicleDTO vehicleDTO) {
         Optional<VehicleEntity> vehicleEntity = vehicleRepo.findById(vehicle_id);
-        if (vehicleEntity.isPresent()) {
+        if (vehicleEntity.isEmpty()) {
             throw new NotFoundException("The vehicle id cannot be found  :" + vehicle_id);
 
         }

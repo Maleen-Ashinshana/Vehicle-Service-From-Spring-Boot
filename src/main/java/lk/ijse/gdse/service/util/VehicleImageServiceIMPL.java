@@ -75,7 +75,7 @@ public class VehicleImageServiceIMPL implements VehicleImageService {
     @Override
     public void updateVehicleImage(String image_id,VehicleImageDTO imageDTO) {
         Optional<VehicleImageEntity> imageEntity=vehicleImageRepo.findById(image_id);
-        if (!imageEntity.isPresent()){
+        if (imageEntity.isEmpty()){
             throw new NotFoundException("The vehicle id cannot be found :"+image_id);
 
         }
@@ -87,7 +87,7 @@ public class VehicleImageServiceIMPL implements VehicleImageService {
     @Override
     public void deleteVehicleImage(String image_id) {
         Optional<VehicleImageEntity> byId = vehicleImageRepo.findById(image_id);
-        if (!byId.isPresent()){
+        if (byId.isEmpty()){
             throw new NotFoundException("The vehicle id cannot be found :"+image_id);
         }
         vehicleImageRepo.deleteById(image_id);
